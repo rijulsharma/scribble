@@ -5,11 +5,16 @@ import avatar2 from '../assets/IMG_2610.PNG'
 import avatar3 from '../assets/IMG_2611.PNG'
 import avatar4 from '../assets/IMG_2612.PNG'
 import avatar5 from '../assets/IMG_2613.PNG'
+import { useNavigate } from 'react-router-dom'
 
 function User() {
+  const navigate = useNavigate();
   const [selectedAvatar,setSelectedAvatar] = useState(avatar1);
-  const handleAvatarClick  =(avatar) => {
+  const handleAvatarClick = (avatar) => {
     setSelectedAvatar(avatar);
+  }
+  function CreateRoomButtonClick(){
+    navigate('/createRoom');
   }
   return (
     <div >
@@ -26,7 +31,7 @@ function User() {
        
         <input placeholder='Enter name'></input>
         <img className='selected-avatar' src={selectedAvatar}></img>
-        <button>create room</button>
+        <button onClick={CreateRoomButtonClick}>create room</button>
         
     </div>
   )
