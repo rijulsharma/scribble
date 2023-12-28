@@ -3,28 +3,32 @@ import io from 'socket.io-client';
 
 const socket = io('http://localhost:3001'); 
 
-const Chat = () => {
+const Chat = ({ roomId }) => {
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
     // Listen for incoming messages
     socket.on('message', (data) => {
-      setMessages([...messages, data]);
+      // Use a callback function to ensure that you have the latest state
+      setMessages((prevMessages) => [...prevMessages, data]);
     });
-
+  
     // Clean up on component unmount
     return () => {
       socket.disconnect();
     };
-  }, [messages]);
+  }, []); 
 
-  const sendMessage = () => {
-    socket.emit('message', { text: message });
+ 
 
-    // Clear the input field
-    setMessage('');
-  };
+  
+const sendMessage = () => {
+  socket.emit('message', { text: message });
+  setMessage(''); 
+  console.log('Sent message:', { text: message });
+};
+
 
   return (
     <div>

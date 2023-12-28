@@ -1,6 +1,5 @@
 const express = require('express');
 const http = require('http');
-const socketIO = require('socket.io');
 const cors = require('cors');
 
 const app = express();
@@ -10,15 +9,14 @@ const io = require("socket.io")(server, {
       origin: "http://localhost:3000",
       methods: ["GET", "POST"]
     }
-  });
-// Use cors middleware for Socket.IO
-io.use(cors());
+});
 
 io.on('connection', (socket) => {
   console.log('A user connected');
 
   // Listen for messages
   socket.on('message', (data) => {
+    console.log('Received message:', data);
     io.emit('message', data); // Broadcast the message to all connected clients
   });
 
