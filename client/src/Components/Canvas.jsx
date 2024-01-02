@@ -21,9 +21,7 @@ const Canvas = () => {
 
   return (
     <div>
-      <div>
-      <Toolbar sendColour={handleColorChange} sendEraser={handleEraser}></Toolbar>
-      </div>
+      
       <CanvasDraw
         ref={canvasRef}
         canvasWidth={1000}
@@ -33,6 +31,9 @@ const Canvas = () => {
         brushRadius={2}
         hideGrid={true}
       />
+      <div>
+      <Toolbar sendColour={handleColorChange} sendEraser={handleEraser}></Toolbar>
+      </div>
     </div>
   );
 };

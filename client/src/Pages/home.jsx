@@ -1,9 +1,9 @@
 import React from 'react'
 import User from '../Components/user'
-function home() {
+function home({isAdmin}) {
   return (
     <div>
-      <User isAdmin={true}></User>
+      <User isAdmin={isAdmin}></User>
       
         
     </div>

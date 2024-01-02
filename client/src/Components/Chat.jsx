@@ -8,21 +8,17 @@ const Chat = ({ roomId }) => {
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
-    // Listen for incoming messages
+    
     socket.on('message', (data) => {
-      // Use a callback function to ensure that you have the latest state
+      
       setMessages((prevMessages) => [...prevMessages, data]);
     });
   
-    // Clean up on component unmount
     return () => {
       socket.disconnect();
     };
   }, []); 
 
- 
-
-  
 const sendMessage = () => {
   socket.emit('message', { text: message });
   setMessage(''); 

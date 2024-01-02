@@ -4,8 +4,14 @@ import LeaderBoard from '../Components/LeaderBoard';
 import Canvas from '../Components/Canvas';
 import Chat from '../Components/Chat';
 import { io } from 'socket.io-client';
+import '../Page-Styles/Room.css';
+import User from '../Components/user';
+
+import { AdminProvider, useAdminContext } from '../util/isAdminContext';
 
 const Room = ({ roomId }) => {
+  const { isAdmin } = useAdminContext();
+
   useEffect(() => {
     const socket = io('http://localhost:3001');
 
@@ -25,13 +31,25 @@ const Room = ({ roomId }) => {
   }, [roomId]);
 
   return (
-    <div>
-      <Header></Header>
-      <LeaderBoard></LeaderBoard>
-      <Canvas></Canvas>
-      <Chat roomId={roomId}></Chat>
+    <div className='room'>
+      {isAdmin ? (
+        <>
+          <Header></Header>
+          <LeaderBoard></LeaderBoard>
+          <Canvas></Canvas>
+          <Chat roomId={roomId}></Chat>
+        </>
+      ) : (
+        <User isAdmin={false} />
+      )}
     </div>
   );
 };
 
-export default Room;
+const RoomWithAdminContext = () => (
+  <AdminProvider>
+    <Room />
+  </AdminProvider>
+);
+
+export default RoomWithAdminContext;

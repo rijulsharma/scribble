@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { useNavigate } from 'react-router-dom';
+import { useAdminContext } from '../util/isAdminContext'; // Update the path
+
 function CreateRoom() {
   const [roomLink, setRoomLink] = useState('');
   const [isLinkCopied, setIsLinkCopied] = useState(false);
+  const { setIsAdmin } = useAdminContext(); // Get the setIsAdmin function from the context
 
   const generateRoomLink = () => {
     const roomId = uuidv4();
@@ -16,8 +19,7 @@ function CreateRoom() {
 
   useEffect(() => {
     console.log(roomLink);
-  }, [roomLink]); 
-
+  }, [roomLink]);
 
   function copy() {
     const tempTextArea = document.createElement('textarea');
@@ -29,8 +31,10 @@ function CreateRoom() {
     setIsLinkCopied(true);
   }
 
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
   const playButtonClick = () => {
+    // Set isAdmin to true when the play button is clicked
+    setIsAdmin(true);
     window.location.href = roomLink;
   };
 

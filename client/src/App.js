@@ -9,10 +9,12 @@ function App() {
   return (
     <BrowserRouter>
     <Routes>
-    <Route path="/" element={<Home />}/>
+    <Route path="/" element={<Home isAdmin={true} />}/>
     <Route path="/createRoom" element={<CreateRoom />}/>
     <Route path="/chat" element={<Chat/>}></Route>
-    <Route path="room/*" element={<Room />} />
+    
+    
+    <Route path="room/*" element={<Home isAdmin={false}/>} />
     
     </Routes>
 
